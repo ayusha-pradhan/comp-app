@@ -1,4 +1,6 @@
 import React from 'react';
+import Red from './red';
+import Green from './green'
 
 
 class Reverse extends React.Component{
@@ -58,6 +60,8 @@ render(){
      <>
     <h2>{counter}</h2>
     <h3>{input}</h3>
+    <Red input={input}/>
+    <Green input={input}/>
     
   </>)
 }
