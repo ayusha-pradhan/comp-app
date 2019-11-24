@@ -5,70 +5,45 @@ class Counter extends React.Component{
     super(props);
     this.state ={
       counter:0,
+      rev:false
       
     }
   }
 
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-        if(this.state.counter >= 9) {
-            // clearInterval(this.intervalId); 
-            // if(this.state.counter <= 9) {
 
-            this.setState((prevState) => ({
-              counter: prevState.counter - 1
-          }));
-        }else {
-            this.setState((prevState) => ({
-                counter: prevState.counter + 1
-            }));
+  getCounter = () => {
+    const { counter, rev } = this.state;
+
+  
+   return(
+     setTimeout(() => {
+      if(counter === 9) {
+        this.setState({rev: true, counter: counter - 1}, () => counter);
+      }
+      else if (counter === 0) {
+        this.setState({rev: false, counter: counter + 1}, () => counter);
+      }
+      else {
+        if(rev) { 
+          
+          this.setState({counter: counter - 1}, () => counter);
         }
-    }, 1000);
-    // clearInterval(this.intervalId);
-}
+        else {
+          this.setState({counter: counter + 1}, () => counter);
+        }
+      }
+  }, 2000)
 
-
-componentWillUnmount(){
-  clearInterval(this.state.intervalId)
-}
-
-  // componentDidMount() {
-  //   this.decrement()
-  //   this.increment()
-    
-  // }
-
- 
-  // increment(){
-  //   const {count}=this.state
-  //   this.interval = setInterval(() => {
-  //       if(count === 0) {         
-  //         this.setState(({ count }) => ({
-  //           count: count + 1,
-  //         }))
-  //       }
-  //    }, 1000)
-  // }
-  // decrement(){
-  //   const {co}=this.state
-  //   this.interval = setInterval(() => {
-  //     if(co === 5) {   
-              
-  //       this.setState(({ co }) => ({
-  //         co: co - 1,
-  //       }))
-  //     }}
-      
-  //     , 1000)
-  // }
-
+   );
+  }
   
 
   render(){
+    this.getCounter();
+    const { counter } = this.state;
     return(
-      <h2>
-        {this.state.counter}
-      </h2>
+       
+      <h2>{counter}</h2>
     )
   }
 
