@@ -1,50 +1,66 @@
 import React from 'react';
 
-class Reverse extends  React.Component{
+
+class Reverse extends React.Component{
   constructor(props){
     super(props);
     this.state ={
       counter:10,
-      input:0
+      input:0,
+      rev:false
       
     }
   }
 
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      if(this.state.counter <= 10 ) {
-            this.setState((prevState) => ({
-                counter: prevState.counter - 1
-            }));
-          }
-      if
-        (this.state.counter===0)
-        {clearInterval(this.intervalId)
-          this.setState((prevState) => ({
-            counter: prevState.counter + 1,
-            input: prevState.input + 1
-        }));
+
+getCounter = () => {
+  const { counter, rev } = this.state;
+
+
+ return(
+   setTimeout(() => {
+    if(counter === 0) {
+      this.setState({rev: true, counter: counter + 1}, () => counter);
+    }
+    else if (counter === 10) {
+      this.setState({rev: false, counter: counter - 1}, () => counter);
+    }
+    else {
+      if(rev) { 
         
-              //  this.setState((prevState) => ({
-              //      input: prevState.input + 1
-              //  }))
+        this.setState({counter: counter + 1}, () => counter);
       }
-    
-         }, 1000);
-    
+      else {
+        this.setState({counter: counter - 1}, () => counter);
+      }
+    }
+}, 2000)
+
+ );
 }
 
+getInput=()=>{
+  const {counter,input}=this.state;
+  return(
+  setTimeout(()=>{
+    if(counter===0)
+      this.setState({input:input+1})
+   
     
-
+  },2000)
+  )}
 
 render(){
-    return(
-        <>
-      <h2>{this.state.counter}</h2>
-      <h3>{this.state.input}</h3>
-    </>
-    )
-  }
+  this.getCounter();
+  const { counter,input } = this.state;
+  this.getInput()
+  return(
+     <>
+    <h2>{counter}</h2>
+    <h3>{input}</h3>
+    
+  </>)
+}
 
 }
 
